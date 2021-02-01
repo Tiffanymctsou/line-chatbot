@@ -72,6 +72,7 @@ function handleEvent(event) {
         }
         }
     } else if (isChatting) {
+        console.log(event.message.type);
         if (event.message.text === '開始查詢') {
             isChatting = false;
             client.replyMessage(event.replyToken, searchBegin).then(() => {
@@ -80,7 +81,8 @@ function handleEvent(event) {
                 console.log(err.response.data);
             });
             
-        } else {
+        } else if (event.message.type === 'text') {
+            console.log(event);
             isChatting = false;
             client.replyMessage(event.replyToken, {
                 type: "text",
@@ -118,6 +120,13 @@ function handleEvent(event) {
             }).catch((err) => {
                 console.log(err.response.data);
             });
+        } else {
+            client.replyMessage(event.replyToken, {type: 'sticker', packageId: "11537", stickerId: "52002744"})
+                .then(() => {
+                    console.log(isChatting);
+                }).catch((err) => {
+                    console.log(err.response.data);
+                });
         }
     }
 }
