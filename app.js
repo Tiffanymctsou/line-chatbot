@@ -29,7 +29,7 @@ let isChatting = false; // to check whether customer service is ongoing
 
 function handleEvent(event) {
     const type = event.type;
-    if (!isChatting) {
+    if (!isChatting || type === 'postback') {
         switch (type) {
         case 'message': {
             if (event.message.text === '開始查詢' || event.message.text === '回主選單' || event.message.text === '點錯了') {
